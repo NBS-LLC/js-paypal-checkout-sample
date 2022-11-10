@@ -25,3 +25,10 @@ Following PayPal's [card testing](https://developer.paypal.com/tools/sandbox/car
 ```
 > npm stop
 ```
+
+### Automated
+```
+> npm start
+> npm run e2e
+> npm stop
+```
