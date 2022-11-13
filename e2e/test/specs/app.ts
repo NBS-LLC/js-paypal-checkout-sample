@@ -60,8 +60,8 @@ describe('PayPal standard checkout', function () {
  */
 function getExpiry() {
     const expiry = new Date();
-    expiry.setDate(expiry.getDate() + 365);
-    const mm = expiry.getMonth() + 1;
+    expiry.setFullYear(expiry.getFullYear() + 1);
+    const mm = expiry.getMonth() + 1; // Month is zero based
     const yy = expiry.getFullYear().toString().substring(2);
-    return `${mm}/${yy}`
+    return `${mm}${yy}`
 }
