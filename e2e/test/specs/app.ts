@@ -33,7 +33,7 @@ describe('PayPal standard checkout', function () {
         await expect(payPalCreditCardFormPayNowButton).toBeDisplayed();
 
         await creditCardNumberInput.setValue('4012000033330026'); // Visa test card provided by PayPal
-        await creditCardExpiryInput.setValue('11/25'); // TODO: Use dynamic date and year
+        await creditCardExpiryInput.setValue(getExpiry());
         await creditCardSecurityInput.setValue('111');
 
         await firstNameInput.setValue('Nick');
@@ -54,3 +54,14 @@ describe('PayPal standard checkout', function () {
         await expect(thankYouMessage).toBeDisplayed({ wait: 30000 });
     });
 });
+
+/**
+ * @returns An expiration date one year in the future.
+ */
+function getExpiry() {
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 365);
+    const mm = expiry.getMonth() + 1;
+    const yy = expiry.getFullYear().toString().substring(2);
+    return `${mm}/${yy}`
+}
