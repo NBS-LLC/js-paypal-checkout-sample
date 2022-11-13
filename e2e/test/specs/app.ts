@@ -21,6 +21,7 @@ describe('PayPal standard checkout', function () {
         const phoneNumberInput = await $('input[name="phone"]');
         const emailAddressInput = await $('input[name="email"]');
 
+        const spinnerLockOverlay = await $('#spinner-lock-title');
         const thankYouMessage = await $('h3=Thank you for your payment!');
 
         await expect(payPalButtonsFrame).toBeDisplayed();
@@ -45,8 +46,10 @@ describe('PayPal standard checkout', function () {
         await phoneNumberInput.setValue('6195551212');
         await emailAddressInput.setValue('nick.tester@example.com');
 
-        await browser.pause(1000); // TODO: Replace with dynamic wait
-        await payPalCreditCardFormPayNowButton.click();
+        await browser.waitUntil(async () => {
+            await payPalCreditCardFormPayNowButton.click();
+            return await spinnerLockOverlay.isExisting();
+        }, { interval: 1000 });
 
         await expect(thankYouMessage).toBeDisplayed({ wait: 30000 });
     });
