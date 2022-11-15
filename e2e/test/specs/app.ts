@@ -23,6 +23,9 @@ describe('PayPal standard checkout', function () {
 
         const spinnerLockOverlay = await $('#spinner-lock-title');
         const thankYouMessage = await $('h3=Thank you for your payment!');
+        const transactionAmount = await $('#transaction-amount');
+        const transactionCurrency = await $('#transaction-currency');
+        const transactionPayee = await $('#transaction-payee');
 
         await expect(payPalButtonsFrame).toBeDisplayed();
         await browser.switchToFrame(payPalButtonsFrame);
@@ -52,6 +55,9 @@ describe('PayPal standard checkout', function () {
         }, { interval: 1000 });
 
         await expect(thankYouMessage).toBeDisplayed({ wait: 30000 });
+        await expect(transactionAmount).toHaveText('77.44');
+        await expect(transactionCurrency).toHaveText('USD');
+        await expect(transactionPayee).toHaveText('sb-9k47al22144790@business.example.com');
     });
 });
 
