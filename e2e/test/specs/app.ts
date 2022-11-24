@@ -2,37 +2,37 @@ describe('PayPal standard checkout', function () {
     before(function () { browser.url(''); });
 
     it('allows for successful credit card transaction', async function () {
-        const payPalButtonsFrame = await $('iframe[title="PayPal"]');
-        const payPalCreditCardButton = await $('[role="link"][aria-label="Debit or Credit Card"]');
-        const payPalCreditCardFormFrame = await $('iframe[title="paypal_card_form"]');
-        const payPalCreditCardFormPayNowButton = await $('button=Pay Now');
+        const payPalButtonsFrame = $('iframe[title="PayPal"]');
+        const payPalCreditCardButton = $('[role="link"][aria-label="Debit or Credit Card"]');
+        const payPalCreditCardFormFrame = $('iframe[title="paypal_card_form"]');
+        const payPalCreditCardFormPayNowButton = $('button=Pay Now');
 
-        const creditCardNumberInput = await $('input[name="cardnumber"]');
-        const creditCardExpiryInput = await $('input[name="expiry-date"]');
-        const creditCardSecurityInput = await $('input[name="credit-card-security"]');
+        const creditCardNumberInput = $('input[name="cardnumber"]');
+        const creditCardExpiryInput = $('input[name="expiry-date"]');
+        const creditCardSecurityInput = $('input[name="credit-card-security"]');
 
-        const firstNameInput = await $('input[name="givenName"]');
-        const lastNameInput = await $('input[name="familyName"]');
-        const addressLine1Input = await $('input[name="line1"]');
-        const addressLine2Input = await $('input[name="line2"]');
-        const cityInput = await $('input[name="city"]');
-        const stateSelect = await $('select[name="state"]');
-        const zipCodeInput = await $('input[name="postcode"]');
-        const phoneNumberInput = await $('input[name="phone"]');
-        const emailAddressInput = await $('input[name="email"]');
+        const firstNameInput = $('input[name="givenName"]');
+        const lastNameInput = $('input[name="familyName"]');
+        const addressLine1Input = $('input[name="line1"]');
+        const addressLine2Input = $('input[name="line2"]');
+        const cityInput = $('input[name="city"]');
+        const stateSelect = $('select[name="state"]');
+        const zipCodeInput = $('input[name="postcode"]');
+        const phoneNumberInput = $('input[name="phone"]');
+        const emailAddressInput = $('input[name="email"]');
 
-        const spinnerLockOverlay = await $('#spinner-lock-title');
-        const thankYouMessage = await $('h3=Thank you for your payment!');
-        const transactionAmount = await $('#transaction-amount');
-        const transactionCurrency = await $('#transaction-currency');
-        const transactionPayee = await $('#transaction-payee');
+        const spinnerLockOverlay = $('#spinner-lock-title');
+        const thankYouMessage = $('h3=Thank you for your payment!');
+        const transactionAmount = $('#transaction-amount');
+        const transactionCurrency = $('#transaction-currency');
+        const transactionPayee = $('#transaction-payee');
 
         await expect(payPalButtonsFrame).toBeDisplayed();
-        await browser.switchToFrame(payPalButtonsFrame);
+        await browser.switchToFrame(await payPalButtonsFrame);
         await payPalCreditCardButton.click();
 
         await expect(payPalCreditCardFormFrame).toBeDisplayed();
-        await browser.switchToFrame(payPalCreditCardFormFrame);
+        await browser.switchToFrame(await payPalCreditCardFormFrame);
         await expect(payPalCreditCardFormPayNowButton).toBeDisplayed();
 
         await creditCardNumberInput.setValue('4012000033330026'); // Visa test card provided by PayPal
